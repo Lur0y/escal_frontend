@@ -2,18 +2,17 @@ import useApiCall from "@/api/useApiCall";
 
 export default function useAdmins() {
 
-    const { apiCallStart, apiCallEnd } = useApiCall();
+    const { apiCallStart, apiCallEnd, BASE_URL } = useApiCall();
 
     async function loadDefaultAdmins() {
 
-        const url = `${import.meta.env.VITE_BACKEND_DIR}/admins/default`;
+        const url = `${BASE_URL}/admins/default`;
         const data = {};
         apiCallStart();
         try {
             axios.post(url, data);
         } catch (error) {
             apiFatalError(error);
-            // Custom errors
         } finally {
             apiCallEnd();
         }
