@@ -1,4 +1,5 @@
 import useApiCall from "@/api/useApiCall";
+import axios from 'axios';
 
 export default function useAdmins() {
 
@@ -10,7 +11,7 @@ export default function useAdmins() {
         const data = {};
         apiCallStart();
         try {
-            axios.post(url, data);
+            await axios.post(url, data);
         } catch (error) {
             apiFatalError(error);
         } finally {

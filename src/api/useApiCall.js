@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLoaderContext } from '@/contexts/LoaderContext';
-import { useFastDialogContext } from  '@/contexts/FastDialogContext';
+import { useFastDialogContext } from '@/contexts/FastDialogContext';
 
 export default function useApiCall() {
 
@@ -22,8 +22,15 @@ export default function useApiCall() {
         setIsLoading(false);
     }
 
-    function apiFatalError(error) {
+    function apiErrorManager(error) {
         console.log(error);
+        if (error?.response?.status == 401) {
+            fastDialog({
+                title: 'No Autorizado',
+                message: 'No estas autorizado para acceder a esta página'
+            });
+            return;
+        }
         fastDialog({
             title: 'Error inesperado',
             message: 'Ha ocurrido un error inesperado en el programa, por favor reporta esta falla'
@@ -38,6 +45,6 @@ export default function useApiCall() {
         });
     }, [token]);
 
-    return { apiCallStart, apiCallEnd, apiFatalError, setToken, authOptions, BASE_URL };
+    return { apiCallStart, apiCallEnd, apiErrorManager, setToken, token, authOptions, BASE_URL };
 
 }

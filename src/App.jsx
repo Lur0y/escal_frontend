@@ -1,7 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LoaderContextProvider } from "@/contexts/LoaderContext";
 import { FastDialogContextProvider } from "@/contexts/FastDialogContext";
-import Test from "@/pages/Test";
+import ProtectedRoute from "@/components/ProtectedRoute"
+import Login from "@/pages/public/Login";
+import Home from "@/pages/public/Home";
+import NotFound from "@/pages/public/NotFound";
+import AdminPanel from "@/pages/admin/AdminPanel";
 
 export default function App() {
 
@@ -12,9 +16,15 @@ export default function App() {
 					<BrowserRouter>
 						<Routes>
 							<Route path="/">
-								<Route index element={<Test />} />
-								<Route path="login" element={<></>} />
-								<Route path="*" element={<>404 - Not Found</>} />
+								<Route index element={<Home />} />
+								<Route path="login" element={<Login />} />
+								<Route path="home" element={<Home />} />
+								<Route path="admin/panel" element={
+									<ProtectedRoute>
+										<AdminPanel />
+									</ProtectedRoute>
+								} />
+								<Route path="*" element={<NotFound />} />
 							</Route>
 						</Routes>
 					</BrowserRouter>

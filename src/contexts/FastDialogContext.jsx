@@ -1,19 +1,19 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Typography } from "@mui/material";
 import { createContext, useContext, useState } from "react";
 
 const FastDialogContext = createContext();
 
-export function FastDialogContextProvider({children}){
+export function FastDialogContextProvider({ children }) {
 
 	const [open, setOpen] = useState(false);
 	const [title, setTitle] = useState('');
 	const [message, setMessage] = useState('');
 
-	function handleClose(){
+	function handleClose() {
 		setOpen(false);
 	}
 
-	function fastDialog({title = '', message = ''}){
+	function fastDialog({ title = '', message = '' }) {
 
 		setTitle(title);
 		setMessage(message);
@@ -22,27 +22,27 @@ export function FastDialogContextProvider({children}){
 	}
 
 	return (
-		<FastDialogContext.Provider value={{fastDialog}}>
+		<FastDialogContext.Provider value={{ fastDialog }}>
 			{children}
 			<Dialog
-                open={open}
-                onClose={handleClose}
-            >
-            <DialogTitle>{title}</DialogTitle>
-            <DialogContent>
-                <DialogContentText>
-                	{message}
-                </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={handleClose}>Entendido</Button>
-            </DialogActions>
-            </Dialog>
-		</FastDialogContext.Provider>
+				open={open}
+				onClose={handleClose}
+			>
+				<DialogTitle>{title}</DialogTitle>
+				<DialogContent>
+					<DialogContentText>
+						{message}
+					</DialogContentText>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={handleClose} autoFocus>Entendido</Button>
+				</DialogActions>
+			</Dialog>
+		</FastDialogContext.Provider >
 	);
 
 }
 
-export function useFastDialogContext(){
+export function useFastDialogContext() {
 	return useContext(FastDialogContext);
 }

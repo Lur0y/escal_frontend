@@ -1,28 +1,72 @@
 import useApiCall from '@/api/useApiCall';
+import axios from 'axios';
 
 export default function useTokens() {
 
-    const { apiCallStart, apiCallEnd, setToken, BASE_URL } = useApiCall();
+    const { apiCallStart, apiCallEnd, apiErrorManager, BASE_URL } = useApiCall();
 
-    async function createToken({username, pwd}) {
+    async function createToken({ username, pwd }) {
 
         const url = `${BASE_URL}/tokens`;
-        const data = { username, pwd};
+        const data = { username, pwd };
+        let token = '';
+        let credentialsValid = false;
         apiCallStart();
         try {
-            const response = axios.post(url, data);
-            setToken(response.data.token);
-            sessionStorage.setItem('token', response.data.token);
-            // navigate home
-            // en el logout has lo ipuesto, token a null
+            const response = await axios.post(url, data);
+            token = response.data.token;
+            credentialsValid = true;
         } catch (error) {
-            if(error?.reponse?.statusCode == 401){
-                fastDialog({
-                    title: 'Claves incorrectas',
-                    message: 'Su usuario o contraseña son incorrectos'
-                });
-            }else{
-                apiFatalError(error);
+            if (error?.response?.status != 401) {
+                apiErrorManager(error);
+            }
+        } finally {
+            apiCallEnd();
+        }
+
+        return ({ token, credentialsValid });
+
+    }
+
+    async function validateToken({ token }) {
+
+        const url = `${BASE_URL}/tokens/validate`;
+        let tokenValid = false;
+        const options = {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        apiCallStart();
+        try {
+            await axios.get(url, options);
+            tokenValid = true;
+        } catch (error) {
+            if (error?.response?.status != 401) {
+                apiErrorManager(error);
+            }
+        } finally {
+            apiCallEnd();
+        }
+
+        return ({ tokenValid });
+
+    }
+
+    async function deleteRelatedTokens({ token }) {
+
+        const url = `${BASE_URL}/tokens`;
+        const options = {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        apiCallStart();
+        try {
+            await axios.delete(url, options);
+        } catch (error) {
+            if (error?.response?.status != 401) {
+                apiErrorManager(error);
             }
         } finally {
             apiCallEnd();
@@ -30,6 +74,6 @@ export default function useTokens() {
 
     }
 
-    return { createToken };
+    return { createToken, validateToken, deleteRelatedTokens };
 
 }
