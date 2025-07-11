@@ -75,7 +75,6 @@ export default function useCourses() {
 
     }
 
-
     return { getCourses, createCourse, changeCourseName, deleteCourse };
 
 }

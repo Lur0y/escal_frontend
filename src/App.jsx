@@ -8,6 +8,7 @@ import NotFound from "@/pages/public/NotFound";
 import AdminPanel from "@/pages/admin/AdminPanel";
 import Unauthorized from "@/pages/public/unauthorized"
 import LoadAdmin from "@/pages/public/LoadAdmin";
+import CourseManager from "@/pages/admin/CourseManager";
 
 export default function App() {
 
@@ -25,6 +26,11 @@ export default function App() {
 							<Route path="admin/panel" element={
 								<ProtectedRoute>
 									<AdminPanel />
+								</ProtectedRoute>
+							} />
+							<Route path="admin/courses" element={
+								<ProtectedRoute>
+									<CourseManager />
 								</ProtectedRoute>
 							} />
 							<Route path="*" element={<NotFound />} />
