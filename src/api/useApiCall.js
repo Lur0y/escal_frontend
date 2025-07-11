@@ -38,10 +38,18 @@ export default function useApiCall() {
             navigate('/unauthorized');
             return;
         }
+        if(error?.response?.status == 422){
+            fastDialog({
+                title: 'Datos incompletos o con errores',
+                message: 'Hay algún dato que contiene errores en la útlima petición',
+            });
+            throw new Error('Error de validación');
+        }
         fastDialog({
             title: 'Error inesperado',
             message: 'Ha ocurrido un error inesperado en el programa, por favor reporta esta falla'
         });
+        throw new Error('Error inesperado en petición a la API detuvo la ejecución');
     }
 
     useEffect(() => {

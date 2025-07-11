@@ -22,7 +22,7 @@ export default function TeacherManager() {
 						<TableRow>
 							<TableCell>Nombre</TableCell>
 							<TableCell>Matrícula</TableCell>
-							<TableCell align="right">Acciones</TableCell>
+							<TableCell align="center">Acciones</TableCell>
 						</TableRow>
 					</TableHead>
 
@@ -42,21 +42,26 @@ export default function TeacherManager() {
 									<TableCell>{teacher.teacher_name}</TableCell>
 									<TableCell>{teacher.worker_id}</TableCell>
 									<TableCell align="right">
-									<IconButton
-										onClick={() => openEditDialog(teacher)}
-										color="primary"
-										size="small"
-									>
-										<Edit />
-									</IconButton>
-									<IconButton
-										onClick={() => deleteTeacher(teacher.RECORD_id)}
-										color="error"
-										size="small"
-										sx={{ ml: 1 }}
-									>
-										<Delete />
-									</IconButton>
+										<Box sx={{
+											display: 'flex',
+											alignItems: 'center',
+											justifyContent: 'space-around'
+										}}>
+											<IconButton
+												onClick={() => openEditDialog(teacher)}
+												color="primary"
+												size="small"
+											>
+												<Edit />
+											</IconButton>
+											<IconButton
+												onClick={() => deleteTeacher(teacher.RECORD_id)}
+												color="error"
+												size="small"
+											>
+												<Delete />
+											</IconButton>
+										</Box>
 									</TableCell>
 								</TableRow>
 							))
