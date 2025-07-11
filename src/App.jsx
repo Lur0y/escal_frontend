@@ -7,31 +7,31 @@ import Home from "@/pages/public/Home";
 import NotFound from "@/pages/public/NotFound";
 import AdminPanel from "@/pages/admin/AdminPanel";
 import Unauthorized from "@/pages/public/unauthorized"
+import LoadAdmin from "@/pages/public/LoadAdmin";
 
 export default function App() {
 
 	return (
-		<>
+		<BrowserRouter>
 			<FastDialogContextProvider>
 				<LoaderContextProvider>
-					<BrowserRouter>
-						<Routes>
-							<Route path="/">
-								<Route index element={<Home />} />
-								<Route path="login" element={<Login />} />
-								<Route path="home" element={<Home />} />
-								<Route path="unauthorized" element={<Unauthorized />} />
-								<Route path="admin/panel" element={
-									<ProtectedRoute>
-										<AdminPanel />
-									</ProtectedRoute>
-								} />
-								<Route path="*" element={<NotFound />} />
-							</Route>
-						</Routes>
-					</BrowserRouter>
+					<Routes>
+						<Route path="/">
+							<Route index element={<Home />} />
+							<Route path="login" element={<Login />} />
+							<Route path="home" element={<Home />} />
+							<Route path="unauthorized" element={<Unauthorized />} />
+							<Route path="admin/load" element={<LoadAdmin />} />
+							<Route path="admin/panel" element={
+								<ProtectedRoute>
+									<AdminPanel />
+								</ProtectedRoute>
+							} />
+							<Route path="*" element={<NotFound />} />
+						</Route>
+					</Routes>
 				</LoaderContextProvider>
 			</FastDialogContextProvider>
-		</>
+		</BrowserRouter>
 	);
 }

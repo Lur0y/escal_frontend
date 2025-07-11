@@ -1,5 +1,6 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import { createContext, useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const FastDialogContext = createContext();
 
@@ -9,9 +10,14 @@ export function FastDialogContextProvider({ children }) {
 	const [open, setOpen] = useState(false);
 	const [title, setTitle] = useState('');
 	const [message, setMessage] = useState('');
-	
+	const navigate = useNavigate();
 
 	function handleClose() {
+		setOpen(false);
+	}
+
+	function handleLoadAdmin(){
+		navigate('admin/load');
 		setOpen(false);
 	}
 
@@ -38,10 +44,10 @@ export function FastDialogContextProvider({ children }) {
 					</DialogContentText>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={handleClose} autoFocus>Entendido</Button>
+					<Button onClick={handleClose}>Entendido</Button>
 					{
 						loadAdmin &&
-						<Button onClick={handleClose}>Cargar Administrador</Button>
+						<Button onClick={handleLoadAdmin}>Cargar Administrador</Button>
 					}
 				</DialogActions>
 			</Dialog>
