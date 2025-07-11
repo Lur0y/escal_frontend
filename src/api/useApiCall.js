@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useLoaderContext } from '@/contexts/LoaderContext';
 import { useFastDialogContext } from '@/contexts/FastDialogContext';
+import { useNavigate } from "react-router-dom";
 
 export default function useApiCall() {
 
+    const navigate = useNavigate();
     const BASE_URL = import.meta.env.VITE_BACKEND_DIR;
     const { setIsLoading } = useLoaderContext();
     const { fastDialog } = useFastDialogContext();
@@ -24,11 +26,16 @@ export default function useApiCall() {
 
     function apiErrorManager(error) {
         console.log(error);
-        if (error?.response?.status == 401) {
+        if (error?.response?.status == 425) {
             fastDialog({
-                title: 'No Autorizado',
-                message: 'No estas autorizado para acceder a esta página'
+                title: 'Sin Administrador',
+                message: 'No se puede utilizar el sistema debido a que no hay ningún administrador cargado en base de datos',
+                loadAdmin: true
             });
+            return;
+        }
+        if (error?.response?.status == 401) {
+            navigate('/unauthorized');
             return;
         }
         fastDialog({

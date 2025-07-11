@@ -6,6 +6,7 @@ import Login from "@/pages/public/Login";
 import Home from "@/pages/public/Home";
 import NotFound from "@/pages/public/NotFound";
 import AdminPanel from "@/pages/admin/AdminPanel";
+import Unauthorized from "@/pages/public/unauthorized"
 
 export default function App() {
 
@@ -19,6 +20,7 @@ export default function App() {
 								<Route index element={<Home />} />
 								<Route path="login" element={<Login />} />
 								<Route path="home" element={<Home />} />
+								<Route path="unauthorized" element={<Unauthorized />} />
 								<Route path="admin/panel" element={
 									<ProtectedRoute>
 										<AdminPanel />

@@ -3,6 +3,8 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import useCourses from "../../api/useCourses";
 
 export default function Home() {
     const navigate = useNavigate();
@@ -24,6 +26,11 @@ export default function Home() {
             onClick: () => navigate("/teacher"),
         },
     ];
+
+    const { getCourses } = useCourses();
+    useEffect(() => {
+        getCourses();
+    }, []);
 
     return (
         <Box
