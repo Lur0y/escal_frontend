@@ -41,16 +41,24 @@ export default function useSurveys() {
         };
         apiCallStart();
         let student_codes = [];
+        let gone = false;
+        let codeOk = true;
         try {
             const response = await axios.patch(url, data, authOptions);
             student_codes = response.data.student_codes;
         } catch (error) {
-            apiErrorManager(error);
+            if(error?.response?.status == 410){
+                gone = true;
+            }else if(error?.response?.status == 401){
+                codeOk = false;
+            }else{
+                apiErrorManager(error);
+            }
         } finally {
             apiCallEnd();
         }
         
-        return ({ student_codes });
+        return ({ student_codes, gone, codeOk });
 
     }
 

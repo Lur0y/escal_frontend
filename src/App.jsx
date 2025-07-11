@@ -11,6 +11,8 @@ import LoadAdmin from "@/pages/public/LoadAdmin";
 import CourseManager from "@/pages/admin/CourseManager";
 import TeacherManager from "@/pages/admin/TeacherManager";
 import { BottomNavigationContextProvider } from "./contexts/BottomNavigationContext";
+import Student from "@/pages/public/Student";
+import Teacher from "@/pages/public/Teacher";
 
 export default function App() {
 
@@ -23,6 +25,8 @@ export default function App() {
 							<Route path="/">
 								<Route index element={<Home />} />
 								<Route path="login" element={<Login />} />
+								<Route path="student" element={<Student />} />
+								<Route path="teacher" element={<Teacher />} />
 								<Route path="home" element={<Home />} />
 								<Route path="unauthorized" element={<Unauthorized />} />
 								<Route path="admin/load" element={<LoadAdmin />} />
