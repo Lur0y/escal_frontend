@@ -7,9 +7,14 @@ const BottomNavigationContext = createContext();
 
 export function BottomNavigationContextProvider({ children }) {
 
-	const [value, setValue] = useState(5);
-	const navigate = useNavigate();
+	function getInitialValue(pathname){
+		if (pathname.startsWith("/admin/courses")) return 0;
+		if (pathname.startsWith("/admin/teachers")) return 1;
+		return 5; 
+	};
 	const location = useLocation();
+	const [value, setValue] = useState(getInitialValue(location.pathname));
+	const navigate = useNavigate();
 
 	useEffect(() => {
 	
