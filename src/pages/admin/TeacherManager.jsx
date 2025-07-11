@@ -1,8 +1,6 @@
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography, Table, TableBody, TableCell, TableHead, TableRow, IconButton, Snackbar } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
 import useTeacherManager from "@/customHooks/useTeacherManager";
-import BottomNavigation from "@/components/BottonNavigation";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export default function TeacherManager() {
 	
@@ -99,7 +97,6 @@ export default function TeacherManager() {
 					autoHideDuration={3000}
 				/>
 			</Box>
-			<BottomNavigation />
 		</>
 	);
 }
