@@ -5,7 +5,7 @@ import useApiCall from "@/api/useApiCall";
 
 export default function ProtectedRoute({ children }) {
 
-    const [isTokenValid, setIsTokenValid] = useState(false);
+    const [isTokenValid, setIsTokenValid] = useState(true);
     const { validateToken } = useTokens();
     const { token } = useApiCall();
 

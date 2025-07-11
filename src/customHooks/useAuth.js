@@ -5,9 +5,9 @@ import { useNavigate } from 'react-router-dom';
 
 export default function useAuth() {
 
-    const { createToken } = useTokens();
+    const { createToken, deleteRelatedTokens } = useTokens();
     const { fastDialog } = useFastDialogContext();
-    const { setToken, deleteRelatedTokens, token } = useApiCall();
+    const { setToken, token } = useApiCall();
     const navigate = useNavigate();
 
     async function login({ username, password, route }) {
@@ -30,7 +30,7 @@ export default function useAuth() {
         await deleteRelatedTokens({ token: token });
         setToken(null);
         sessionStorage.removeItem('token');
-        navigate('/login');
+        navigate('/home');
 
     }
 

@@ -9,6 +9,8 @@ import AdminPanel from "@/pages/admin/AdminPanel";
 import Unauthorized from "@/pages/public/unauthorized"
 import LoadAdmin from "@/pages/public/LoadAdmin";
 import CourseManager from "@/pages/admin/CourseManager";
+import TeacherManager from "@/pages/admin/TeacherManager";
+import { BottomNavigationContextProvider } from "./contexts/BottomNavigationContext";
 
 export default function App() {
 
@@ -16,26 +18,33 @@ export default function App() {
 		<BrowserRouter>
 			<FastDialogContextProvider>
 				<LoaderContextProvider>
-					<Routes>
-						<Route path="/">
-							<Route index element={<Home />} />
-							<Route path="login" element={<Login />} />
-							<Route path="home" element={<Home />} />
-							<Route path="unauthorized" element={<Unauthorized />} />
-							<Route path="admin/load" element={<LoadAdmin />} />
-							<Route path="admin/panel" element={
-								<ProtectedRoute>
-									<AdminPanel />
-								</ProtectedRoute>
-							} />
-							<Route path="admin/courses" element={
-								<ProtectedRoute>
-									<CourseManager />
-								</ProtectedRoute>
-							} />
-							<Route path="*" element={<NotFound />} />
-						</Route>
-					</Routes>
+					<BottomNavigationContextProvider>
+						<Routes>
+							<Route path="/">
+								<Route index element={<Home />} />
+								<Route path="login" element={<Login />} />
+								<Route path="home" element={<Home />} />
+								<Route path="unauthorized" element={<Unauthorized />} />
+								<Route path="admin/load" element={<LoadAdmin />} />
+								<Route path="admin/panel" element={
+									<ProtectedRoute>
+											<AdminPanel />
+									</ProtectedRoute>
+								} />
+								<Route path="admin/courses" element={
+									<ProtectedRoute>
+											<CourseManager />
+									</ProtectedRoute>
+								} />
+								<Route path="admin/teachers" element={
+									<ProtectedRoute>
+											<TeacherManager />
+									</ProtectedRoute>
+								} />
+								<Route path="*" element={<NotFound />} />
+							</Route>
+						</Routes>
+					</BottomNavigationContextProvider>
 				</LoaderContextProvider>
 			</FastDialogContextProvider>
 		</BrowserRouter>
