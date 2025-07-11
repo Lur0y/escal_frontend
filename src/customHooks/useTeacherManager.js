@@ -42,7 +42,7 @@ export default function useTeacherManager() {
 	async function deleteTeacher(id){
 		await apiDeleteTeacher({teacherId: id});
 		setSnackbar({ open: true, message: "Maestro eliminado" });
-		fetchTeachers();
+		await fetchTeachers();
 	}
 
 	function closeSnackbar() {
@@ -65,6 +65,9 @@ export default function useTeacherManager() {
 
 	function closeDialog(){
 		setOpenDialog(false);
+		setName("");
+		setWorkerId("");
+		setEditingTeacher(null);
 	}
 
 	useEffect(() => {

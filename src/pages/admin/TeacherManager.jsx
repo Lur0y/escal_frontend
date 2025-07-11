@@ -2,6 +2,7 @@ import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextFie
 import { Edit, Delete } from "@mui/icons-material";
 import useTeacherManager from "@/customHooks/useTeacherManager";
 import BottomNavigation from "@/components/BottonNavigation";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export default function TeacherManager() {
 	
@@ -30,7 +31,7 @@ export default function TeacherManager() {
 					<TableBody>
 						{
 							teachers.length === 0 && (
-							<TableRow key={1}>
+							<TableRow key='no_key'>
 								<TableCell colSpan={3} align="center">
 									No hay maestros registrados
 								</TableCell>
