@@ -40,8 +40,8 @@ export default function TeacherManager() {
 						{
 							teachers.map((teacher) => (
 								<TableRow key={teacher.RECORD_id}>
-									<TableCell>{teacher.name}</TableCell>
-									<TableCell>{teacher.workerId}</TableCell>
+									<TableCell>{teacher.teacher_name}</TableCell>
+									<TableCell>{teacher.worker_id}</TableCell>
 									<TableCell align="right">
 									<IconButton
 										onClick={() => openEditDialog(teacher)}
@@ -51,7 +51,7 @@ export default function TeacherManager() {
 										<Edit />
 									</IconButton>
 									<IconButton
-										onClick={() => deleteTeacher(teacher.id)}
+										onClick={() => deleteTeacher(teacher.RECORD_id)}
 										color="error"
 										size="small"
 										sx={{ ml: 1 }}

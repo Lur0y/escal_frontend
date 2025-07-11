@@ -10,7 +10,7 @@ export function LoaderContextProvider({children}){
 	return(
 		<LoaderContext.Provider value={{setIsLoading}}>
 			<Backdrop
-				sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+				sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1000 })}
 				open={isLoading}
 			>
 				<CircularProgress color="inherit" />

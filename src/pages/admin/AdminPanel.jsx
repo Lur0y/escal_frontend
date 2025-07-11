@@ -4,10 +4,12 @@ import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import BigButton from "@/components/BigButton";
 import useAuth from '@/customHooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 export default function AdminPanel() {
 
     const { logout } = useAuth();
+    const navigate = useNavigate();
 
     return (
        <Box

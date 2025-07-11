@@ -9,44 +9,43 @@ export default function useTeacherManager() {
 	const [name, setName] = useState("");
 	const [workerId, setWorkerId] = useState("");
 	const [snackbar, setSnackbar] = useState({ open: false, message: "" });
-	const { getTeachers } = useTeachers();
+	const { getTeachers, createTeacher, changeTeacherData, deleteTeacher: apiDeleteTeacher  } = useTeachers();
 
 	async function fetchTeachers(){
+
 		const { teachers: newTeachers} = await getTeachers();
 		setTeachers(newTeachers);
+
 	}
 
 	async function saveTeacher(){
-		// 	if (!name.trim() || !workerId.trim()) {
-		// setSnackbar({ open: true, message: "Por favor completa todos los campos" });
-		// return false;
-		// }
 
-		// if (editingTeacher) {
-		// // Actualizar maestro
-		// // await api.put(`/teachers/${editingTeacher.id}`, { name, workerId });
-		// setTeachers((prev) =>
-		// 	prev.map((t) => (t.id === editingTeacher.id ? { ...t, name, workerId } : t))
-		// );
-		// setSnackbar({ open: true, message: "Maestro actualizado" });
-		// } else {
-		// // Crear maestro
-		// // const newTeacher = await api.post('/teachers', { name, workerId });
-		// const newTeacher = { id: Date.now(), name, workerId }; // simula nuevo id
-		// setTeachers((prev) => [...prev, newTeacher]);
-		// setSnackbar({ open: true, message: "Maestro creado" });
-		// }
-		// closeDialog();
-		// return true;
+		if (!name.trim() || !workerId.trim()) {
+			setSnackbar({ open: true, message: "Por favor completa todos los campos" });
+			return false;
+		}
+
+		if (editingTeacher) {
+			await changeTeacherData({teacherId: editingTeacher.RECORD_id, name: name, workerId: workerId});
+			setSnackbar({ open: true, message: "Maestro actualizado" });
+			await fetchTeachers();
+		} else {
+			await createTeacher({name, workerId});
+			setSnackbar({ open: true, message: "Maestro creado" });
+			await fetchTeachers();
+		}
+
+		closeDialog();
+		return true;
 	}
 	
 	async function deleteTeacher(id){
-		// // await api.delete(`/teachers/${id}`);
-		// setTeachers((prev) => prev.filter((t) => t.id !== id));
-		// setSnackbar({ open: true, message: "Maestro eliminado" });
+		await apiDeleteTeacher({teacherId: id});
+		setSnackbar({ open: true, message: "Maestro eliminado" });
+		fetchTeachers();
 	}
 
-	function closeSnackbar(params) {
+	function closeSnackbar() {
 		setSnackbar({ open: false, message: "" });
 	}
 
@@ -59,8 +58,8 @@ export default function useTeacherManager() {
 
 	function openEditDialog(teacher){
 		setEditingTeacher(teacher);
-		setName(teacher.name);
-		setWorkerId(teacher.workerId);
+		setName(teacher.teacher_name);
+		setWorkerId(teacher.worker_id);
 		setOpenDialog(true);
 	}
 
