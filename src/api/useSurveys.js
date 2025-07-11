@@ -104,6 +104,24 @@ export default function useSurveys() {
         
     }
 
-    return { createSurvey, openSurvey, closeSurvey, takeSurvey };
+    async function getSurveyQuestions() {
+
+        const url = `${BASE_URL}/surveys/${surveyId}/questions`;
+        let questions = [];
+        apiCallStart();
+        try {
+            const response = await axios.get(url, authOptions);
+            questions = response.data;
+        } catch (error) {
+            apiErrorManager(error);
+        } finally {
+            apiCallEnd();
+        }
+
+        return ({ questions });
+
+    }
+
+    return { createSurvey, openSurvey, closeSurvey, takeSurvey, getSurveyQuestions };
 
 }
