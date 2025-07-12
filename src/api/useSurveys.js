@@ -28,7 +28,7 @@ export default function useSurveys() {
         }
 
         return ({ surveyId, teacherCode });
-        
+
     }
 
     async function openSurvey({ surveyId, teacherCode, studentsQuantity }) {
@@ -47,17 +47,17 @@ export default function useSurveys() {
             const response = await axios.patch(url, data, authOptions);
             student_codes = response.data.student_codes;
         } catch (error) {
-            if(error?.response?.status == 410){
+            if (error?.response?.status == 410) {
                 gone = true;
-            }else if(error?.response?.status == 401){
+            } else if (error?.response?.status == 401) {
                 codeOk = false;
-            }else{
+            } else {
                 apiErrorManager(error);
             }
         } finally {
             apiCallEnd();
         }
-        
+
         return ({ student_codes, gone, codeOk });
 
     }
@@ -80,7 +80,7 @@ export default function useSurveys() {
         } finally {
             apiCallEnd();
         }
-        
+
         return ({ student_codes });
 
     }
@@ -93,18 +93,25 @@ export default function useSurveys() {
             comments: comments,
             answers: answers
         };
+        let surveyAnsweredSuccesfully = true;
         apiCallStart();
         try {
             await axios.post(url, data, authOptions);
         } catch (error) {
-            apiErrorManager(error);
+            if (error?.response?.status == 401) {
+                surveyAnsweredSuccesfully = false;
+            } else {
+                apiErrorManager(error);
+            }
         } finally {
             apiCallEnd();
         }
-        
+
+        return { surveyAnsweredSuccesfully };
+
     }
 
-    async function getSurveyQuestions() {
+    async function getSurveyQuestions({ surveyId }) {
 
         const url = `${BASE_URL}/surveys/${surveyId}/questions`;
         let questions = [];

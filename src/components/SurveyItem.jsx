@@ -1,7 +1,7 @@
-import { Box, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from "@mui/material";
+import { Box, TextField, Autocomplete, Typography } from "@mui/material";
 
-export default function SurveyItem({ question, value, onChange }) {
-	
+export default function SurveyItem({ questionText, questionId, value, updateAnswerValue }) {
+
 	const ratingOptions = [
 		{ label: "Insuficiente", value: 4 },
 		{ label: "Suficiente", value: 6 },
@@ -11,23 +11,16 @@ export default function SurveyItem({ question, value, onChange }) {
 
 	return (
 		<Box mb={3}>
-			<FormControl component="fieldset" fullWidth>
-				<FormLabel component="legend">{question.question_text}</FormLabel>
-				<RadioGroup
-					row
-					value={value || ""}
-					onChange={(e) => onChange(question.RECORD_id, Number(e.target.value))}
-				>
-					{ratingOptions.map((opt) => (
-						<FormControlLabel
-							key={opt.value}
-							value={opt.value}
-							control={<Radio />}
-							label={opt.label}
-						/>
-					))}
-				</RadioGroup>
-			</FormControl>
+			<Typography>
+				{questionText}
+			</Typography>
+			<Autocomplete
+				sx={{ mt: 2 }}
+				options={ratingOptions}
+				renderInput={(params) => <TextField {...params} label="Seleccione una opción" required />}
+				value={value}
+				onChange={(_, v) => updateAnswerValue({ questionId: questionId, value: v })}
+			/>
 		</Box>
 	);
 }

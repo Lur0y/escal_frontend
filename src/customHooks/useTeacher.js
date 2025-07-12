@@ -10,7 +10,7 @@ export default function useTeacher() {
 	const [error, setError] = useState("");
 	const { openSurvey, closeSurvey } = useSurveys();
 
-	async function handleOpen(){
+	async function handleOpen() {
 
 		setError("");
 
@@ -33,17 +33,17 @@ export default function useTeacher() {
 		}
 
 		const { student_codes, gone, codeOk } = await openSurvey({
-			surveyId: surveyId, 
-			teacherCode: teacherCode, 
+			surveyId: surveyId,
+			teacherCode: teacherCode,
 			studentsQuantity: studentCount
 		});
 
-		if(gone){
+		if (gone) {
 			setError("Esta encuesta ya fue cerrada, no se puede volver a abrir");
 			return;
 		}
 
-		if(!codeOk){
+		if (!codeOk) {
 			setError("El código es invalido, por favor verifica que coincida con el id que proporcionaste");
 			return;
 		}
@@ -52,6 +52,7 @@ export default function useTeacher() {
 			surveyId: id,
 			studentCount: count,
 			studentCodes: student_codes,
+			teacherCode: teacherCode
 		};
 
 		sessionStorage.setItem("teacher-session", JSON.stringify(sessionData));
@@ -61,7 +62,7 @@ export default function useTeacher() {
 
 	}
 
-	async function handleClose(){
+	async function handleClose() {
 
 		await closeSurvey({ surveyId, teacherCode });
 		sessionStorage.removeItem("teacher-session");
@@ -71,7 +72,7 @@ export default function useTeacher() {
 		setStudentCodes([]);
 		setError("");
 
-	}	
+	}
 
 	useEffect(() => {
 		const session = sessionStorage.getItem("teacher-session");
@@ -80,6 +81,7 @@ export default function useTeacher() {
 			setSurveyId(data.surveyId);
 			setStudentCount(data.studentCount);
 			setStudentCodes(data.studentCodes);
+			setTeacherCode(data.teacherCode);
 		}
 	}, []);
 

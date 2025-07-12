@@ -4,7 +4,7 @@ import useStudent from "@/customHooks/useStudent";
 
 export default function Student() {
 
-	const  { questions, surveyId, studentCode, comments, error, submitted, handleLoadSurvey, handleSubmit, handleAnswerChange, setSurveyId, setStudentCode, setComments, setSubmitted } = useStudent();
+	const { answers, updateAnswerValue, surveyId, studentCode, comments, error, submitted, handleLoadSurvey, handleSubmit, setSurveyId, setStudentCode, setComments } = useStudent();
 
 	if (submitted) {
 		return <Typography variant="h4" mt={5}>¡Encuesta enviada!</Typography>;
@@ -55,16 +55,22 @@ export default function Student() {
 			</Paper>
 			{error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
 
-			{questions.length > 0 && (
-				<Box>
-					{questions.map((q) => (
-						<SurveyItem
-							key={q.RECORD_id}
-							question={q}
-							value={answers[q.RECORD_id]}
-							onChange={handleAnswerChange}
-						/>
-					))}
+			{answers.length > 0 && (
+				<Box sx={{ mx: 5, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+					<Paper
+						elevation={2}
+						sx={{ p: 2, borderRadius: 2, mb: 3 }}
+					>
+						{answers.map((ans) => (
+							<SurveyItem
+								key={ans.question_id}
+								questionText={ans.question_text}
+								questionId={ans.question_id}
+								updateAnswerValue={updateAnswerValue}
+								value={ans.answer_value}
+							/>
+						))}
+					</Paper>
 
 					<TextField
 						label="Comentarios (opcional)"
@@ -76,7 +82,7 @@ export default function Student() {
 						sx={{ mb: 3 }}
 					/>
 
-					<Button variant="contained" onClick={handleSubmit}>
+					<Button variant="contained" onClick={handleSubmit} sx={{ mb: 3 }}>
 						Enviar Encuesta
 					</Button>
 				</Box>

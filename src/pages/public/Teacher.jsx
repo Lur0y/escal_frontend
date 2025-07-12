@@ -62,8 +62,6 @@ export default function Teacher() {
 							<Paper
 								variant="outlined"
 								sx={{
-									maxHeight: 300,
-									overflowY: "auto",
 									p: 2,
 									fontFamily: "monospace",
 								}}
