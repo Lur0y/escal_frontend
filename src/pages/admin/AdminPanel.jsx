@@ -1,4 +1,4 @@
-import { Box, Grid } from "@mui/material";
+import { Box, Grid2 as Grid } from "@mui/material";
 import SchoolIcon from '@mui/icons-material/School';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -12,7 +12,7 @@ export default function AdminPanel() {
     const navigate = useNavigate();
 
     return (
-       <Box
+        <Box
             sx={{
                 minHeight: "100vh",
                 bgcolor: "#fafafa",
@@ -23,19 +23,19 @@ export default function AdminPanel() {
             }}
         >
             <Grid container spacing={4} justifyContent="center" alignItems="center" sx={{ maxWidth: 600 }}>
-                <BigButton 
-                    icon={<SchoolIcon sx={{ fontSize: 40, mb: 1 }} />} 
-                    label='Cursos' 
+                <BigButton
+                    icon={<SchoolIcon sx={{ fontSize: 40, mb: 1 }} />}
+                    label='Cursos'
                     onClick={() => navigate("/admin/courses")}
                 />
-                <BigButton 
-                    icon={<PersonIcon sx={{ fontSize: 40, mb: 1 }} />} 
-                    label='Maestros' 
+                <BigButton
+                    icon={<PersonIcon sx={{ fontSize: 40, mb: 1 }} />}
+                    label='Maestros'
                     onClick={() => navigate("/admin/teachers")}
                 />
-                <BigButton 
-                    icon={<LogoutIcon sx={{ fontSize: 40, mb: 1 }} />} 
-                    label='Cerrar sesión' 
+                <BigButton
+                    icon={<LogoutIcon sx={{ fontSize: 40, mb: 1 }} />}
+                    label='Cerrar sesión'
                     onClick={logout}
                 />
             </Grid>

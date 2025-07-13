@@ -1,4 +1,4 @@
-import { Box, Grid } from "@mui/material";
+import { Box, Grid2 as Grid } from "@mui/material";
 import SchoolIcon from '@mui/icons-material/School';
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { useNavigate } from "react-router-dom";
@@ -20,7 +20,7 @@ export default function Home() {
                 p: 4,
             }}
         >
-            <Grid container spacing={4} justifyContent="center" alignItems="center" sx={{ maxWidth: 600 }}>
+            <Grid container spacing={4} justifyContent="center" alignItems="center" sx={{ maxWidth: 600 }} >
                 <BigButton
                     icon={<SchoolIcon sx={{ fontSize: 40, mb: 1 }} />}
                     label='Soy Estudiante'

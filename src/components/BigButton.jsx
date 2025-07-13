@@ -1,8 +1,8 @@
-import { Button, Grid, Typography } from "@mui/material";
+import { Button, Grid2 as Grid, Typography } from "@mui/material";
 
-export default function BigButton({onClick, icon, label}){
+export default function BigButton({ onClick, icon, label }) {
 
-	return(
+	return (
 		<Grid container justifyContent="center">
 			<Button
 				variant="outlined"
