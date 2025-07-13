@@ -6,11 +6,11 @@ import Login from "@/pages/public/Login";
 import Home from "@/pages/public/Home";
 import NotFound from "@/pages/public/NotFound";
 import AdminPanel from "@/pages/admin/AdminPanel";
-import Unauthorized from "@/pages/public/unauthorized"
+import Unauthorized from "@/pages/public/Unauthorized"
 import LoadAdmin from "@/pages/public/LoadAdmin";
 import CourseManager from "@/pages/admin/CourseManager";
 import TeacherManager from "@/pages/admin/TeacherManager";
-import { BottomNavigationContextProvider } from "./contexts/BottomNavigationContext";
+import { BottomNavigationContextProvider } from "@/contexts/BottomNavigationContext";
 import Student from "@/pages/public/Student";
 import Teacher from "@/pages/public/Teacher";
 
@@ -32,17 +32,17 @@ export default function App() {
 								<Route path="admin/load" element={<LoadAdmin />} />
 								<Route path="admin/panel" element={
 									<ProtectedRoute>
-											<AdminPanel />
+										<AdminPanel />
 									</ProtectedRoute>
 								} />
 								<Route path="admin/courses" element={
 									<ProtectedRoute>
-											<CourseManager />
+										<CourseManager />
 									</ProtectedRoute>
 								} />
 								<Route path="admin/teachers" element={
 									<ProtectedRoute>
-											<TeacherManager />
+										<TeacherManager />
 									</ProtectedRoute>
 								} />
 								<Route path="*" element={<NotFound />} />
